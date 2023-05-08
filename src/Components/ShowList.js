@@ -15,7 +15,8 @@ const ShowList = ({ history }) => {
   console.log(shows)
 
   const handleShowClick = (id) => {
-    // history.push(`/shows/${id}`);
+    history.push(`/shows/${id}`);
+    console.log(id)
   };
 
   return (
