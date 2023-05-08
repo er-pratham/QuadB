@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 
 const ShowDetails = () => {
   const [show, setShow] = useState(null);
-           const {id}=useParams()
+  const [Booked, setBooked] = useState([])
+       const {id}=useParams()
 
   useEffect(() => {
     const fetchShow = async () => {
@@ -14,22 +15,42 @@ const ShowDetails = () => {
     fetchShow();
   }, [id]);
 
-  const handleBookingClick = () => {
-    // TODO: Implement booking functionality
+  const handleBookingClick = (data) => {
+   let newBooking={data:data}
+   setBooked([...Booked,newBooking])
+   console.log(Booked)
   };
 
   return (
     <div className="show-details">
+
+
+  
+  
+
+
       {show ? (
         <>
-          <h1>{show.name}</h1>
-          <img src={show.image?.medium} alt={show.name} />
+          <div className="top">
+    <div className="columns">
+      <div className="column is-full featured_wrapper p-0">
+        <img src={show.image?.original} className="featured" />
+        <div className="title_wrapper">
+          <span className="has-text-white">Trending Today</span>
+          <h1 className="title is-1 has-text-white">{show.name}</h1>
           <p>{show.summary}</p>
-          <button onClick={handleBookingClick}>Book Movie Ticket</button>
+          <button className="button is-medium" onClick={()=>handleBookingClick(show)}>Book A Ticket</button>
+        </div>
+      </div>
+    </div>
+  </div>
         </>
       ) : (
         <p>Loading...</p>
       )}
+      <div className="cart-area">
+    {Booked.length} Tickets Booked
+  </div>
     </div>
   );
 };
